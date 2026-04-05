@@ -181,6 +181,7 @@ def read_settings(path: "Path"):
         "ballsdex.packages.balls",
         "ballsdex.packages.config",
         "ballsdex.packages.countryballs",
+        "ballsdex.packages.economy",
         "ballsdex.packages.info",
         "ballsdex.packages.players",
         "ballsdex.packages.trade",
@@ -326,6 +327,7 @@ packages:
   - ballsdex.packages.admin
   - ballsdex.packages.balls
   - ballsdex.packages.config
+  - ballsdex.packages.economy
   - ballsdex.packages.countryballs
   - ballsdex.packages.info
   - ballsdex.packages.players
@@ -454,6 +456,7 @@ packages:
   - ballsdex.packages.config
   - ballsdex.packages.countryballs
   - ballsdex.packages.info
+  - ballsdex.packages.economy
   - ballsdex.packages.players
   - ballsdex.packages.trade
 """

@@ -587,3 +587,68 @@ class Block(models.Model):
 
     def __str__(self) -> str:
         return str(self.pk)
+
+
+# ---------------------------------------------------------------------------
+# Economy models
+# ---------------------------------------------------------------------------
+
+
+class Wallet(models.Model):
+    """Stores the coin balance for each player."""
+
+    player: fields.OneToOneRelation[Player] = fields.OneToOneField(
+        "models.Player",
+        on_delete=fields.CASCADE,
+        related_name="wallet",
+        description="Player that owns this wallet",
+    )
+    coins = fields.BigIntField(default=0, description="Current coin balance")
+
+    def __str__(self) -> str:
+        return f"{self.player_id} — {self.coins} coins"
+
+
+class PackClaim(models.Model):
+    """Tracks free daily / weekly pack claims."""
+
+    PACK_DAILY = "daily"
+    PACK_WEEKLY = "weekly"
+
+    player: fields.ForeignKeyRelation[Player] = fields.ForeignKeyField(
+        "models.Player",
+        on_delete=fields.CASCADE,
+        related_name="pack_claims",
+        description="Player who claimed the pack",
+    )
+    pack_type = fields.CharField(max_length=16, description="'daily' or 'weekly'")
+    claimed_at = fields.DatetimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"{self.player_id} claimed {self.pack_type}"
+
+    class Meta:
+        indexes = [
+            PostgreSQLIndex(fields=("player_id",)),
+        ]
+
+
+class ShopPackUse(models.Model):
+    """Tracks purchased pack uses from the shop."""
+
+    player: fields.ForeignKeyRelation[Player] = fields.ForeignKeyField(
+        "models.Player",
+        on_delete=fields.CASCADE,
+        related_name="shop_pack_uses",
+        description="Player who used the shop pack",
+    )
+    pack_type = fields.CharField(max_length=32, description="Pack key, e.g. 'common', 'stonemask'")
+    used_at = fields.DatetimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"{self.player_id} used {self.pack_type}"
+
+    class Meta:
+        indexes = [
+            PostgreSQLIndex(fields=("player_id",)),
+        ]

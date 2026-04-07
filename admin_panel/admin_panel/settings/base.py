@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "social_django",
     "admin_panel.apps.BallsdexAdminConfig",
     "bd_models",
+    "economy_models",
     "preview",
 ]
 

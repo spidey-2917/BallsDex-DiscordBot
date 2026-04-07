@@ -608,6 +608,9 @@ class Wallet(models.Model):
     def __str__(self) -> str:
         return f"{self.player_id} — {self.coins} coins"
 
+    class Meta:
+        table = "economy_wallet"
+
 
 class PackClaim(models.Model):
     """Tracks free daily / weekly pack claims."""
@@ -628,6 +631,7 @@ class PackClaim(models.Model):
         return f"{self.player_id} claimed {self.pack_type}"
 
     class Meta:
+        table = "economy_packclaim"
         indexes = [
             PostgreSQLIndex(fields=("player_id",)),
         ]
@@ -649,6 +653,7 @@ class ShopPackUse(models.Model):
         return f"{self.player_id} used {self.pack_type}"
 
     class Meta:
+        table = "economy_shoppackuse"
         indexes = [
             PostgreSQLIndex(fields=("player_id",)),
         ]

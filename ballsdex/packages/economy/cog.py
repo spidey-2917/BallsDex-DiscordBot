@@ -139,6 +139,7 @@ async def give_ball(player: Player, ball_model: Ball) -> BallInstance:
         player=player,
         attack_bonus=atk,
         health_bonus=hp,
+        deleted=False,
     )
 
 
